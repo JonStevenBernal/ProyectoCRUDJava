@@ -16,16 +16,29 @@ public class Main {
             System.out.println("---- Mostrando todos los empleados ----");
             repository.findAll().forEach(System.out::println);
 //            System.out.println(repository.getById(3));
+//
+//            System.out.println("---- Insertando un nuevo empleado ----");
+//
+//            Employee employee = new Employee();
+//            employee.setFirst_name("Javier");
+//            employee.setPa_surname("Gonzalez");
+//            employee.setMa_surname("Gonzalez");
+//            employee.setEmail("javier@example.com");
+//            employee.setSalary(1000f);
+//            repository.save(employee);
 
-            System.out.println("---- Insertando un nuevo empleado ----");
+            System.out.println("---- Actualizando el empleado ----");
 
-            Employee employee = new Employee();
-            employee.setFirst_name("Javier");
-            employee.setPa_surname("Gonzalez");
-            employee.setMa_surname("Gonzalez");
-            employee.setEmail("javier@example.com");
-            employee.setSalary(1000f);
-            repository.save(employee);
+//            Employee employee = new Employee();
+            Employee objEmployee = repository.getById(7);
+//            employee.setId(7);
+//            employee.setFirst_name("Javier");
+//            employee.setPa_surname("Gonzalez");
+//            employee.setMa_surname("Gonzalez");
+//            employee.setEmail("javier@example.com");
+            objEmployee.setSalary(3000f);
+            repository.update(objEmployee.getId(), objEmployee);
+
 
             System.out.println("---- Mostrando todos los empleados ----");
             repository.findAll().forEach(System.out::println);

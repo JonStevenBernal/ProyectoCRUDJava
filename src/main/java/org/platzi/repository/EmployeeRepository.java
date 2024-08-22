@@ -41,6 +41,26 @@ public class EmployeeRepository implements Repository<Employee> {
     }
 
     @Override
+    public void update(int id, Employee employee) throws SQLException {
+        String sql = "UPDATE employees SET first_name = ?, pa_surname = ?, ma_surname = ?, email = ?, salary = ? WHERE id = ?";
+        try(PreparedStatement myStamt = getConnection().prepareStatement(sql)) {
+            myStamt.setString(1, employee.getFirst_name() != null ? employee.getFirst_name() : "");
+            myStamt.setString(2, employee.getPa_surname() != null ? employee.getPa_surname() : "");
+            myStamt.setString(3, employee.getMa_surname() != null ? employee.getMa_surname() : "");
+            myStamt.setString(4, employee.getEmail() != null ? employee.getEmail() : "");
+            myStamt.setFloat(5, employee.getSalary() != null ? employee.getSalary() : 0.0f);
+
+            // Asignar el ID al último parámetro
+            myStamt.setInt(6, id);
+
+            // Ejecutar la actualización
+            myStamt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void save(Employee employee) {
         String sql = "INSERT INTO employees (first_name, pa_surname, ma_surname, email, salary) VALUES (?, ?, ?, ?, ?)";
         try(PreparedStatement myStamt = getConnection().prepareStatement(sql)) {
